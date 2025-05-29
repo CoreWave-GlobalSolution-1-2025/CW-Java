@@ -1,0 +1,17 @@
+package com.corewave.models;
+
+public enum EVENT_TYPE {
+    STORM,
+    EARTHQUAKE,
+    FLOOD,
+    WILDFIRE,
+    ELECTRICAL_FAILURE,
+    DAM_BREAK,
+    TORNADO,
+    LANDSLIDE,
+    TSUNAMI,
+    TOXIC_POLLUTION,
+    COMMUNICATION_FAILURE,
+    MONITORING_SYSTEM_FAILURE,
+    OTHER
+}

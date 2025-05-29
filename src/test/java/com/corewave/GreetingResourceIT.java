@@ -1,4 +1,4 @@
-package org.acme;
+package com.corewave;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
