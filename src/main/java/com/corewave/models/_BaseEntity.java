@@ -8,6 +8,10 @@ public class _BaseEntity {
     private String name;
     private boolean deleted = false;
 
+    public Object updateAttibutes(Object nObj) {
+        return nObj;
+    }
+
     public String getName() {
         return name;
     }

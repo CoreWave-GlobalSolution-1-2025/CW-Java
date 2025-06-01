@@ -6,8 +6,32 @@ public class Event extends _BaseEntity {
     private EVENT_TYPE eventType;
     private String place;
     private String description;
+    private EVENT_RISK eventRisk;
 
     public Event() {
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventType=" + eventType +
+                ", place='" + place + '\'' +
+                ", description='" + description + '\'' +
+                ", eventRisk=" + eventRisk +
+                "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Event event = (Event) o;
+        return getEventType() == event.getEventType() && Objects.equals(getPlace(), event.getPlace()) && Objects.equals(getDescription(), event.getDescription()) && getEventRisk() == event.getEventRisk();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getEventType(), getPlace(), getDescription(), getEventRisk());
     }
 
     public EVENT_TYPE getEventType() {
@@ -34,25 +58,11 @@ public class Event extends _BaseEntity {
         this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Event event = (Event) o;
-        return getEventType() == event.getEventType() && Objects.equals(getPlace(), event.getPlace()) && Objects.equals(getDescription(), event.getDescription());
+    public EVENT_RISK getEventRisk() {
+        return eventRisk;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getEventType(), getPlace(), getDescription());
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "eventType=" + eventType +
-                ", place='" + place + '\'' +
-                ", description='" + description + '\'' +
-                "} " + super.toString();
+    public void setEventRisk(EVENT_RISK eventRisk) {
+        this.eventRisk = eventRisk;
     }
 }
