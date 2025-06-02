@@ -101,8 +101,8 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
             throw new NotFoundException("Evento não encontrado no sistema. Verifique se o ID está correto.");
         }
         LOGGER.info("Atualizando evento encontrado");
-        var nEvent = (Event) eventOptional.get()
-                .updateAttibutes(uObj);
+        var event = eventOptional.get();
+        event.updateAttributes(uObj);
 
         var query = """
                 UPDATE EVENTOS
@@ -119,12 +119,12 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
         try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
             stmt.setInt(7, id);
 
-            stmt.setString(1, nEvent.getName());
-            stmt.setBoolean(2, nEvent.isDeleted());
-            stmt.setString(3, nEvent.getEventType().toString());
-            stmt.setString(4, nEvent.getEventRisk().toString());
-            stmt.setString(5, nEvent.getPlace());
-            stmt.setString(6, nEvent.getDescription());
+            stmt.setString(1, event.getName());
+            stmt.setBoolean(2, event.isDeleted());
+            stmt.setString(3, event.getEventType().toString());
+            stmt.setString(4, event.getEventRisk().toString());
+            stmt.setString(5, event.getPlace());
+            stmt.setString(6, event.getDescription());
         } catch (SQLException e) {
             LOGGER.error("Erro ao atualizar evento no sistema: {}", e);
         }
@@ -133,18 +133,14 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
     @Override
     public void deleteById(int id) {
 
-        //TODO: Implementar deletação lógica
         var eventOptional = getById(id);
 
         if (eventOptional.isEmpty()) {
             throw new NotFoundException("Evento não encontrado no sistema. Verifique se o ID está correto.");
         }
-
-        var query = """
-                DROP FROM EVENTOS WHERE id = ?
-                """;
-
-
+        var event = eventOptional.get();
+        event.setDeleted(true);
+        updateById(id,event);
     }
 
     private static Event createEventFromResult(ResultSet rs) throws SQLException {

@@ -2,7 +2,7 @@ package com.corewave.models;
 
 import java.util.Objects;
 
-public class Event extends _BaseEntity {
+public class Event extends _BaseEntity<Event> {
     private EVENT_TYPE eventType;
     private String place;
     private String description;

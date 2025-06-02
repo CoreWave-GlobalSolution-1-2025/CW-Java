@@ -2,7 +2,7 @@ package com.corewave.models;
 
 import java.util.Objects;
 
-public class User extends _BaseEntity{
+public class User extends _BaseEntity<User> {
     private String email;
     private String password;
 
