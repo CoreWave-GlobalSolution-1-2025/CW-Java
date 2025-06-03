@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
     @Override
-    public void add(Event obj) {
+    public void add(Event obj) throws SQLException {
         var query = """
                 INSERT INTO EVENTOS
                 (name, deleted, event_type, place, description, event_risk)
@@ -34,11 +34,12 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
             LOGGER.info("Evento adicionado no sistema.");
         } catch (SQLException e) {
             LOGGER.error("Erro ao adicionar evento no sistema: {}", e);
+            throw e;
         }
     }
 
     @Override
-    public List<Event> list() {
+    public List<Event> list() throws SQLException {
         var eventList = new ArrayList<Event>();
         var query = """
                 SELECT * FROM EVENTOS WHERE deleted = 0
@@ -60,12 +61,13 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
 
         } catch (SQLException e) {
             LOGGER.error("Erro ao recuperar eventos no sistema: {}", e);
+            throw e;
         }
         return eventList;
     }
 
     @Override
-    public Optional<Event> getById(int id) {
+    public Optional<Event> getById(int id) throws SQLException {
         var query = """
                 SELECT * FROM EVENTOS WHERE id = ?
                 """;
@@ -86,52 +88,54 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
 
         } catch (SQLException e) {
             LOGGER.error("Erro ao recuperar eventos no sistema: {}", e);
+            throw e;
         }
         return Optional.empty();
     }
 
     @Override
-    public void updateById(int id, Event uObj) {
-        var eventOptional = getById(id);
+    public void updateById(int id, Event uObj) throws Exception {
+            var eventOptional = getById(id);
 
-        LOGGER.info("Buscando evento para atualizar. ID: {}", id);
+            LOGGER.info("Buscando evento para atualizar. ID: {}", id);
 
-        if (eventOptional.isEmpty()) {
-            LOGGER.warn("Evento não encontrado para atualização.");
-            throw new NotFoundException("Evento não encontrado no sistema. Verifique se o ID está correto.");
-        }
-        LOGGER.info("Atualizando evento encontrado");
-        var event = eventOptional.get();
-        event.updateAttributes(uObj);
+            if (eventOptional.isEmpty()) {
+                LOGGER.warn("Evento não encontrado para atualização.");
+                throw new NotFoundException("Evento não encontrado no sistema. Verifique se o ID está correto.");
+            }
+            LOGGER.info("Atualizando evento encontrado");
+            var event = eventOptional.get();
+            event.updateAttributes(uObj);
 
-        var query = """
-                UPDATE EVENTOS
-                SET
-                name = ?,
-                deleted = ?,
-                event_type = ?,
-                event_risk = ?,
-                place = ?,
-                description = ?
-                WHERE id = ?
-                """;
+            var query = """
+                    UPDATE EVENTOS
+                    SET
+                    name = ?,
+                    deleted = ?,
+                    event_type = ?,
+                    event_risk = ?,
+                    place = ?,
+                    description = ?
+                    WHERE id = ?
+                    """;
 
-        try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
-            stmt.setInt(7, id);
+            try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
+                stmt.setInt(7, id);
 
-            stmt.setString(1, event.getName());
-            stmt.setBoolean(2, event.isDeleted());
-            stmt.setString(3, event.getEventType().toString());
-            stmt.setString(4, event.getEventRisk().toString());
-            stmt.setString(5, event.getPlace());
-            stmt.setString(6, event.getDescription());
-        } catch (SQLException e) {
-            LOGGER.error("Erro ao atualizar evento no sistema: {}", e);
-        }
+                stmt.setString(1, event.getName());
+                stmt.setBoolean(2, event.isDeleted());
+                stmt.setString(3, event.getEventType().toString());
+                stmt.setString(4, event.getEventRisk().toString());
+                stmt.setString(5, event.getPlace());
+                stmt.setString(6, event.getDescription());
+            } catch (SQLException e) {
+                LOGGER.error("Erro ao atualizar evento no sistema: {}", e);
+                throw new RuntimeException(e);
+            }
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(int id) throws Exception {
 
         var eventOptional = getById(id);
 

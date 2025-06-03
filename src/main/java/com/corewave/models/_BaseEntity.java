@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class _BaseEntity<T> {
 
-    private int id;
+    private Integer id;
     private String name;
-    private boolean deleted = false;
+    private Boolean deleted = false;
 
     public void updateAttributes(T nObj) {
         for (var field : this.getClass().getDeclaredFields()) {
@@ -36,6 +36,10 @@ public class _BaseEntity<T> {
         return name;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -43,20 +47,16 @@ public class _BaseEntity<T> {
     public _BaseEntity() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
