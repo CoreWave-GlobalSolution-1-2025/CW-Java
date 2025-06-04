@@ -94,14 +94,14 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
     }
 
     @Override
-    public void updateById(int id, Event uObj) throws Exception {
+    public void updateById(int id, Event uObj) throws SQLException, RuntimeException {
             var eventOptional = getById(id);
 
             LOGGER.info("Buscando evento para atualizar. ID: {}", id);
 
             if (eventOptional.isEmpty()) {
                 LOGGER.warn("Evento não encontrado para atualização.");
-                throw new NotFoundException("Evento não encontrado no sistema. Verifique se o ID está correto.");
+                throw new NotFoundException();
             }
             LOGGER.info("Atualizando evento encontrado");
             var event = eventOptional.get();
@@ -135,7 +135,7 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
     }
 
     @Override
-    public void deleteById(int id) throws Exception {
+    public void deleteById(int id) throws SQLException, RuntimeException {
 
         var eventOptional = getById(id);
 

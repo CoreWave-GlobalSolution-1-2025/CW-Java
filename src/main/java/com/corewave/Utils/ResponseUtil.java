@@ -9,15 +9,13 @@ import java.util.List;
 public class ResponseUtil {
 
     public enum Texts {
-        ID_NOT_FOUND("Objeto não encontrado. Verifique se o 'ID'"),
+        NOT_FOUND("Objeto não encontrado. Verifique se o 'ID'"),
         UPDATE_MISSING_FIELDS("Insira algum valor para atualizar. Os campos estão vazios."),
         CREATE_MISSING_FIELDS("Verifique se os campos estão preenchidos corretamente. Certifique-se que o campo 'id' está vazio"),
         SERVER_ERROR_ADD("Erro ao adicionar objeto. Verifique os logs do sistema para mais detalhes."),
         SERVER_ERROR_GET("Erro ao recuperar objeto. Verifique os logs do sistema para mais detalhes."),
         SERVER_ERROR_UPDATE("Erro ao atualizar objeto. Verifique os logs do sistema para mais detalhes."),
-        SERVER_ERROR_DELETE("Erro ao deletar objeto. Verifique os logs do sistema para mais detalhes.")
-
-
+        SERVER_ERROR_DELETE("Erro ao deletar objeto. Verifique os logs do sistema para mais detalhes."),
         ;
 
          final String value;

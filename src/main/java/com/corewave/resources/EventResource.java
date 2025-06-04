@@ -27,9 +27,11 @@ public class EventResource {
         page = page <= 0 ? 1 : page;
 
         try {
+
             var eventsList = REPO.list();
 
             return ResponseUtil.createPaginatedResponse(page, pageSize, eventsList);
+
         } catch (SQLException e) {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_GET.toString());
@@ -45,7 +47,9 @@ public class EventResource {
         }
 
         try {
+
             REPO.add(event);
+
         } catch (SQLException e) {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_ADD.toString());
@@ -63,11 +67,12 @@ public class EventResource {
             int id
     ) {
         try {
+
             var eventOptional = REPO.getById(id);
 
             if (eventOptional.isEmpty()) {
                 return ResponseUtil.createExceptionResponse(Response.Status.NOT_FOUND,
-                        ResponseUtil.Texts.ID_NOT_FOUND.toString());
+                        ResponseUtil.Texts.NOT_FOUND.toString());
             }
 
             var event = eventOptional.get();
@@ -75,6 +80,7 @@ public class EventResource {
             return Response
                     .ok(event)
                     .build();
+
         } catch (SQLException e) {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_GET.toString());
@@ -92,9 +98,11 @@ public class EventResource {
             Event nEvent) {
 
         try {
+
             if (REPO.getById(id).isEmpty()) {
                 return ResponseUtil.createExceptionResponse(Response.Status.NOT_FOUND,
-                        ResponseUtil.Texts.ID_NOT_FOUND.toString());
+                        ResponseUtil.Texts.NOT_FOUND.toString());
+
             } else if (!EventService.checkEventToUpdate(nEvent)) {
                 return ResponseUtil.createExceptionResponse(Response.Status.BAD_REQUEST,
                         ResponseUtil.Texts.UPDATE_MISSING_FIELDS.toString());
@@ -102,10 +110,11 @@ public class EventResource {
 
             REPO.updateById(id, nEvent);
             return getById(id);
+
         } catch (SQLException e) {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_GET.toString());
-        } catch (Exception e) {
+        } catch (NotFoundException e) {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_UPDATE.toString());
         }
@@ -125,7 +134,7 @@ public class EventResource {
 
             if (eventOptional.isEmpty()) {
                 return ResponseUtil.createExceptionResponse(Response.Status.NOT_FOUND,
-                        ResponseUtil.Texts.ID_NOT_FOUND.toString());
+                        ResponseUtil.Texts.NOT_FOUND.toString());
             }
 
             REPO.deleteById(id);

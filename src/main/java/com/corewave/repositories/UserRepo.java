@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
     @Override
-    public void add(User obj) {
+    public void add(User obj) throws SQLException {
         var query = """
                 INSERT INTO USUARIOS
                 (name, deleted, email, password)
@@ -30,11 +30,12 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
             LOGGER.info("Usuário adicionado no sistema.");
         } catch (SQLException e) {
             LOGGER.error("Erro ao adicionar usuário no sistema: {}", e);
+            throw e;
         }
     }
 
     @Override
-    public List<User> list() {
+    public List<User> list() throws SQLException {
         var userList = new ArrayList<User>();
         var query = """
                 SELECT * FROM USUARIOS WHERE deleted = 0
@@ -56,12 +57,13 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
 
         } catch (SQLException e) {
             LOGGER.error("Erro ao recuperar usuários no sistema: {}", e);
+            throw e;
         }
         return userList;
     }
 
     @Override
-    public Optional<User> getById(int id) {
+    public Optional<User> getById(int id) throws SQLException {
         var query = """
                 SELECT * FROM USUARIOS WHERE id = ?
                 """;
@@ -82,12 +84,13 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
 
         } catch (SQLException e) {
             LOGGER.error("Erro ao recuperar usuário no sistema: {}", e);
+            throw e;
         }
         return Optional.empty();
     }
 
     @Override
-    public void updateById(int id, User uObj) {
+    public void updateById(int id, User uObj) throws Exception {
         var userOptional = getById(id);
 
         LOGGER.info("Buscando usuário para atualizar. ID: {}", id);
@@ -119,11 +122,12 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
             stmt.setString(4, user.getPassword());
         } catch (SQLException e) {
             LOGGER.error("Erro ao atualizar usuário no sistema: {}", e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(int id) throws Exception {
         var userOptional = getById(id);
 
         if (userOptional.isEmpty()) {

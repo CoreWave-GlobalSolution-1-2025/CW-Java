@@ -1,6 +1,6 @@
 package com.corewave.resources;
 
-import com.corewave.dtos.PageDto;
+import com.corewave.Utils.ResponseUtil;
 import com.corewave.dtos.UserDto;
 import com.corewave.models.User;
 import com.corewave.repositories.UserRepo;
@@ -32,23 +32,10 @@ public class UserResource {
                         u.getEmail())
                 ).toList();
 
-        var start = (page - 1) * pageSize;
-        var end = Math.min(usersList.size(), (start + pageSize) - 1);
-
-        var usersListPaginated = usersList.subList(start, end);
-
-        return Response.ok(
-                new PageDto<>(
-                        page,
-                        pageSize,
-                        usersList.size(),
-                        usersListPaginated
-                )
-        ).build();
+        return ResponseUtil.createPaginatedResponse(page, pageSize, usersList);
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addUser(User user) {
         return Response.status(Response.Status.NOT_IMPLEMENTED).build();
