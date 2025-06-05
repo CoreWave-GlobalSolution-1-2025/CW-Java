@@ -17,7 +17,7 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
     public void add(Event obj) throws SQLException {
         var query = """
                 INSERT INTO EVENTOS
-                (name, deleted, event_type, place, description, event_risk)
+                (name, deleted, eventtype, place, description, eventrisk)
                 VALUES (?,?,?,?,?,?)
                 """;
 
@@ -112,8 +112,8 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
                     SET
                     name = ?,
                     deleted = ?,
-                    event_type = ?,
-                    event_risk = ?,
+                    eventtype = ?,
+                    eventrisk = ?,
                     place = ?,
                     description = ?
                     WHERE id = ?
@@ -153,10 +153,10 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
         event.setId(rs.getInt("id"));
         event.setName(rs.getString("name"));
         event.setDeleted(rs.getBoolean("deleted"));
-        event.setEventType(EVENT_TYPE.valueOf(rs.getString("event_type")));
+        event.setEventType(EVENT_TYPE.valueOf(rs.getString("eventtype")));
         event.setPlace(rs.getString("place"));
         event.setDescription(rs.getString("description"));
-        event.setEventRisk(EVENT_RISK.valueOf(rs.getString("event_risk")));
+        event.setEventRisk(EVENT_RISK.valueOf(rs.getString("eventrisk")));
         return event;
     }
 }

@@ -16,7 +16,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
         var query = """
                 INSERT INTO USUARIO
                 (name, deleted, email, password)
-                VALUES (?,?,?,?,?,?)
+                VALUES (?,?,?,?)
                 """;
 
         LOGGER.info("Adicionando usuário no sistema: {}", obj.getId());
