@@ -55,7 +55,7 @@ public class EventResource {
                     ResponseUtil.Texts.SERVER_ERROR_ADD.toString());
         }
 
-        return Response.noContent().build();
+        return Response.status(Response.Status.CREATED).build();
 
     }
 
@@ -115,6 +115,9 @@ public class EventResource {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_GET.toString());
         } catch (NotFoundException e) {
+            return ResponseUtil.createExceptionResponse(Response.Status.NOT_FOUND,
+                    ResponseUtil.Texts.NOT_FOUND.toString());
+        } catch (RuntimeException e) {
             return ResponseUtil.createExceptionResponse(Response.Status.INTERNAL_SERVER_ERROR,
                     ResponseUtil.Texts.SERVER_ERROR_UPDATE.toString());
         }

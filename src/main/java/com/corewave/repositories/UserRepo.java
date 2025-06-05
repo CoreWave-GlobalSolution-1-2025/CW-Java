@@ -14,7 +14,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
     @Override
     public void add(User obj) throws SQLException {
         var query = """
-                INSERT INTO USUARIOS
+                INSERT INTO USUARIO
                 (name, deleted, email, password)
                 VALUES (?,?,?,?,?,?)
                 """;
@@ -38,7 +38,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
     public List<User> list() throws SQLException {
         var userList = new ArrayList<User>();
         var query = """
-                SELECT * FROM USUARIOS WHERE deleted = 0
+                SELECT * FROM USUARIO WHERE deleted = 0
                 """;
 
         LOGGER.info("Recuperando usuários no sistema.");
@@ -65,7 +65,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
     @Override
     public Optional<User> getById(int id) throws SQLException {
         var query = """
-                SELECT * FROM USUARIOS WHERE id = ?
+                SELECT * FROM USUARIO WHERE id = ?
                 """;
 
         LOGGER.info("Recuperando usuário no sistema pelo id: {}", id);
@@ -90,7 +90,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
     }
 
     @Override
-    public void updateById(int id, User uObj) throws Exception {
+    public void updateById(int id, User uObj) throws SQLException, RuntimeException {
         var userOptional = getById(id);
 
         LOGGER.info("Buscando usuário para atualizar. ID: {}", id);
@@ -104,7 +104,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
         user.updateAttributes(uObj);
 
         var query = """
-                UPDATE USUARIOS
+                UPDATE USUARIO
                 SET
                 name = ?,
                 deleted = ?,
