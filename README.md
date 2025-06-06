@@ -4,7 +4,7 @@
 
 O projeto **CoreWave** é uma aplicação Java Quarkus desenvolvida para **monitorar eventos extremos**. Ele oferece uma API robusta para gerenciar usuários e registrar, consultar e atualizar informações sobre eventos como enchentes, incêndios e deslizamentos. O objetivo principal é fornecer uma ferramenta para acompanhar e gerenciar dados relacionados a desastres naturais e situações de risco.
 
-A aplicação é configurada para fácil implantação no Railway.
+A aplicação é configurada para fácil implantação no **Render**.
 
 ## Funcionalidades Principais
 
@@ -17,7 +17,7 @@ A aplicação é configurada para fácil implantação no Railway.
 * **Java**
 * **Quarkus Framework:** Para desenvolvimento de aplicações nativas e de alta performance.
 * **API RESTful:** Para comunicação entre cliente e servidor.
-* **Railway:** Plataforma de deploy.
+* **Render:** Plataforma de deploy.
 
 ## Estrutura da API
 
@@ -30,11 +30,11 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 1. Listar Usuários
 
 * **GET `/users?page=X&size=X`**
-    * [cite_start]**Descrição:** Retorna uma lista paginada de usuários no sistema.
-    * [cite_start]**Parâmetros de Query:**
-        * [cite_start]`page`: A página buscada (padrão: 1).
-        * [cite_start]`size`: O tamanho da lista (padrão: 15).
-    * [cite_start]**Retorna:** JSON.
+    * [cite_start]**Descrição:** Retorna uma lista paginada de usuários no sistema. 
+    * **Parâmetros de Query:**
+        * [cite_start]`page`: A página buscada (padrão: 1). 
+        * [cite_start]`size`: O tamanho da lista (padrão: 15). 
+    * [cite_start]**Retorna:** JSON. 
     * **Exemplo de Resposta:**
         ```json
         {
@@ -67,10 +67,10 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 2. Consultar Usuário por ID
 
 * **GET `/users/{id}`**
-    * [cite_start]**Descrição:** Retorna um usuário específico.
+    * [cite_start]**Descrição:** Retorna o usuário específico. 
     * **Parâmetros de Path:**
-        * [cite_start]`id`: ID do usuário buscado.
-    * [cite_start]**Retorna:** JSON.
+        * [cite_start]`id`: ID do usuário buscado. 
+    * [cite_start]**Retorna:** JSON. 
     * **Exemplo de Resposta:**
         ```json
         {
@@ -85,8 +85,8 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 3. Adicionar Usuário
 
 * **POST `/users`**
-    * [cite_start]**Descrição:** Adiciona um novo usuário no sistema.
-    * [cite_start]**Consome:** JSON.
+    * [cite_start]**Descrição:** Adiciona um novo usuário no sistema. 
+    * [cite_start]**Consome:** JSON. 
     * **Exemplo de Requisição (Body):**
         ```json
         {
@@ -99,8 +99,8 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 4. Atualizar Usuário
 
 * **PUT `/users/{id}`**
-    * **Descrição:** Atualiza um usuário. [cite_start]Só precisa enviar o novo campo para atualizar.
-    * [cite_start]**Consome:** JSON.
+    * **Descrição:** Atualiza um usuário. [cite_start]Só precisa enviar o novo campo para atualizar. 
+    * [cite_start]**Consome:** JSON. 
     * **Exemplo de Requisição (Body):**
         ```json
         {
@@ -111,15 +111,15 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 5. Deletar Usuário
 
 * **DELETE `/users/{id}`**
-    * [cite_start]**Descrição:** Remove o usuário específico.
+    * [cite_start]**Descrição:** Remove o usuário específico. 
     * **Parâmetros de Path:**
-        * [cite_start]`id`: ID do usuário buscado.
+        * [cite_start]`id`: ID do usuário buscado. 
 
 #### 6. Validar Usuário
 
 * **GET `/users/validate-user`**
-    * [cite_start]**Descrição:** Verifica se o usuário está cadastrado.
-    * [cite_start]**Consome:** JSON.
+    * [cite_start]**Descrição:** Verifica se o usuário está cadastrado. 
+    * [cite_start]**Consome:** JSON. 
     * **Exemplo de Requisição (Body):**
         ```json
         {
@@ -133,11 +133,11 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 1. Listar Eventos
 
 * **GET `/events?page=X&size=X`**
-    * [cite_start]**Descrição:** Retorna uma lista paginada de eventos no sistema.
+    * [cite_start]**Descrição:** Retorna uma lista paginada de eventos no sistema. 
     * **Parâmetros de Query:**
-        * [cite_start]`page`: A página buscada (padrão: 1).
-        * [cite_start]`size`: O tamanho da lista (padrão: 15).
-    * [cite_start]**Retorna:** JSON.
+        * [cite_start]`page`: A página buscada (padrão: 1). 
+        * [cite_start]`size`: O tamanho da lista (padrão: 15). 
+    * [cite_start]**Retorna:** JSON. 
     * **Exemplo de Resposta:**
         ```json
         {
@@ -179,10 +179,10 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 2. Consultar Evento por ID
 
 * **GET `/events/{id}`**
-    * [cite_start]**Descrição:** Retorna o evento específico.
+    * [cite_start]**Descrição:** Retorna o evento específico. 
     * **Parâmetros de Path:**
-        * [cite_start]`id`: ID do evento buscado.
-    * [cite_start]**Retorna:** JSON.
+        * [cite_start]`id`: ID do evento buscado. 
+    * [cite_start]**Retorna:** JSON. 
     * **Exemplo de Resposta:**
         ```json
         {
@@ -199,8 +199,8 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 3. Adicionar Evento
 
 * **POST `/events`**
-    * [cite_start]**Descrição:** Adiciona um novo evento no sistema.
-    * [cite_start]**Consome:** JSON.
+    * [cite_start]**Descrição:** Adiciona um novo evento no sistema. 
+    * [cite_start]**Consome:** JSON. 
     * **Exemplo de Requisição (Body):**
         ```json
         {
@@ -215,8 +215,8 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 4. Atualizar Evento
 
 * **PUT `/events/{id}`**
-    * **Descrição:** Atualiza um evento. [cite_start]Só precisa enviar o novo campo para atualizar.
-    * [cite_start]**Consome:** JSON.
+    * **Descrição:** Atualiza um evento. [cite_start]Só precisa enviar o novo campo para atualizar. 
+    * [cite_start]**Consome:** JSON. 
     * **Exemplo de Requisição (Body):**
         ```json
         {
@@ -227,9 +227,9 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
 #### 5. Deletar Evento
 
 * **DELETE `/events/{id}`**
-    * [cite_start]**Descrição:** Remove o evento específico.
+    * [cite_start]**Descrição:** Remove o evento específico. 
     * **Parâmetros de Path:**
-        * [cite_start]`id`: ID do evento buscado.
+        * [cite_start]`id`: ID do evento buscado. 
 
 ## Como Configurar e Rodar o Projeto Localmente
 
@@ -261,22 +261,15 @@ Abaixo estão os endpoints disponíveis e seus respectivos detalhes:
         ```
     A aplicação estará disponível em `http://localhost:8080` (ou a porta configurada).
 
-## Como Fazer o Deploy para o Railway
+## Como Fazer o Deploy para o Render
 
-**(Você precisará preencher esta seção com os passos específicos para o deploy. Exemplo abaixo.)**
+**(Preencha esta seção com os passos específicos que você seguiu para fazer o deploy no Render.)**
 
-1.  **Crie uma conta no Railway** (se ainda não tiver).
-2.  **Conecte seu repositório GitHub** ao Railway.
-3.  **Crie um novo projeto** no Railway e selecione o repositório `CoreWave-GlobalSolution-1-2025/CW-Java`.
-4.  **Configure as variáveis de ambiente** necessárias (ex: variáveis de conexão com banco de dados, se aplicável).
-5.  O Railway irá automaticamente detectar a aplicação Quarkus e iniciar o processo de build e deploy.
-
-## Contribuição
-
-*(Opcional: Se este for um projeto colaborativo, adicione instruções sobre como outros podem contribuir.)*
-
-## Licença
-
-*(Opcional: Adicione a licença do seu projeto, por exemplo, MIT.)*
-
----
+1.  **Crie uma conta no Render** (se ainda não tiver).
+2.  **Conecte seu repositório GitHub** ao Render.
+3.  **Crie um novo serviço no Render** (Web Service, Background Worker, etc., dependendo do tipo do seu projeto Quarkus).
+4.  **Selecione o repositório** `CoreWave-GlobalSolution-1-2025/CW-Java`.
+5.  **Configure o build command** (ex: `mvn clean package -Dquarkus.package.type=uber-jar` ou o comando de build para sua aplicação Quarkus).
+6.  **Configure o start command** (ex: `java -jar target/quarkus-app/quarkus-run.jar` ou o comando para iniciar sua aplicação).
+7.  **Defina as variáveis de ambiente** necessárias (ex: `DATABASE_URL`, `DATABASE_USER`, `DATABASE_PASSWORD`, se aplicável).
+8.  O Render irá automaticamente construir e implantar sua aplicação.
