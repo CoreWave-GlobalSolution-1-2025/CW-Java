@@ -17,7 +17,7 @@ public class ResponseUtil {
         SERVER_ERROR_UPDATE("Erro ao atualizar objeto. Verifique os logs do sistema para mais detalhes."),
         SERVER_ERROR_DELETE("Erro ao deletar objeto. Verifique os logs do sistema para mais detalhes."),
         USER_NOT_FOUND("Email não encontrado. Verifique seu email ou crie uma conta."),
-        INVALID_PASSOWORD("Senha inválida"),
+        INVALID_PASSWORD("Senha inválida"),
 
 
 

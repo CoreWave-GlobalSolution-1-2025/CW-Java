@@ -169,19 +169,19 @@ public class UserResource {
             var usersMap = REPO.list().stream()
                     .collect(Collectors.toMap(User::getEmail, User::getPassword));
 
-            var userEmail = usersMap.get(user.getEmail());
+            var savedPassword = usersMap.get(user.getEmail());
 
-            if (userEmail == null) {
+            if (savedPassword == null) {
 
                 return ResponseUtil.createExceptionResponse(Response.Status.NOT_FOUND,
                         ResponseUtil.Texts.USER_NOT_FOUND.toString());
             } else {
-                var validatedUser = userEmail.equals(user.getPassword());
+                var validatedUser = savedPassword.equals(user.getPassword());
                 if (validatedUser) {
                     return Response.noContent().build();
                 } else {
                     return ResponseUtil.createExceptionResponse(Response.Status.UNAUTHORIZED,
-                            ResponseUtil.Texts.INVALID_PASSOWORD.toString());
+                            ResponseUtil.Texts.INVALID_PASSWORD.toString());
                 }
 
             }
