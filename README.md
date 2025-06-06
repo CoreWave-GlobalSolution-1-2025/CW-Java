@@ -1,5 +1,11 @@
 # CoreWave - Monitoramento de Eventos Extremos
 
+## Participantes
+
+- João Alves 559369
+- Juan Pablo 560445
+- Matheus Mariotto 560276
+
 ## Visão Geral do Projeto
 
 O projeto **CoreWave** é uma aplicação Java Quarkus desenvolvida para **monitorar eventos extremos**. Ele oferece uma API robusta para gerenciar usuários e registrar, consultar e atualizar informações sobre eventos como enchentes, incêndios e deslizamentos. O objetivo principal é fornecer uma ferramenta para acompanhar e gerenciar dados relacionados a desastres naturais e situações de risco.
