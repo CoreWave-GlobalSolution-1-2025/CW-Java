@@ -158,7 +158,7 @@ public class UserResource {
         return Response.noContent().build();
     }
 
-    @GET
+    @POST
     @Path("/validate-user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
