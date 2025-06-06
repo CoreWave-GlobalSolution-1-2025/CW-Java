@@ -21,7 +21,8 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
 
         LOGGER.info("Adicionando usuário no sistema: {}", obj.getId());
 
-        try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query)) {
             stmt.setString(1, obj.getName());
             stmt.setBoolean(2, obj.isDeleted());
             stmt.setString(3, obj.getEmail());
@@ -44,7 +45,8 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
         LOGGER.info("Recuperando usuários no sistema.");
 
         try (
-                var stmt = DataBaseConfig.getConnection().prepareStatement(query);
+                var conn = DataBaseConfig.getConnection();
+                var stmt = conn.prepareStatement(query);
                 var rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -70,7 +72,8 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
 
         LOGGER.info("Recuperando usuário no sistema pelo id: {}", id);
 
-        try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
 
@@ -113,7 +116,8 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
                 WHERE id = ?
                 """;
 
-        try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query)) {
             stmt.setInt(5, id);
 
             stmt.setString(1, user.getName());
@@ -135,7 +139,7 @@ public class UserRepo extends _BaseRepo implements _CrudRepo<User> {
         }
         var user = userOptional.get();
         user.setDeleted(true);
-        updateById(id,user);
+        updateById(id, user);
     }
 
     private User createUserFromResult(ResultSet rs) throws SQLException {
