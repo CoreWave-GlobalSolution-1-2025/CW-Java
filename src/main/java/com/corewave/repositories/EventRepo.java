@@ -23,7 +23,8 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
 
         LOGGER.info("Adicionando evento no sistema: {}", obj.getId());
 
-        try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query)) {
             stmt.setString(1, obj.getName());
             stmt.setBoolean(2, obj.isDeleted());
             stmt.setString(3, obj.getEventType().toString());
@@ -47,9 +48,9 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
 
         LOGGER.info("Recuperando eventos no sistema.");
 
-        try (
-                var stmt = DataBaseConfig.getConnection().prepareStatement(query);
-                var rs = stmt.executeQuery()) {
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query);
+             var rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 var event = createEventFromResult(rs);
@@ -74,7 +75,8 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
 
         LOGGER.info("Recuperando evento no sistema pelo id: {}", id);
 
-        try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
 
@@ -95,43 +97,44 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
 
     @Override
     public void updateById(int id, Event uObj) throws SQLException, RuntimeException {
-            var eventOptional = getById(id);
+        var eventOptional = getById(id);
 
-            LOGGER.info("Buscando evento para atualizar. ID: {}", id);
+        LOGGER.info("Buscando evento para atualizar. ID: {}", id);
 
-            if (eventOptional.isEmpty()) {
-                LOGGER.warn("Evento não encontrado para atualização.");
-                throw new NotFoundException();
-            }
-            LOGGER.info("Atualizando evento encontrado");
-            var event = eventOptional.get();
-            event.updateAttributes(uObj);
+        if (eventOptional.isEmpty()) {
+            LOGGER.warn("Evento não encontrado para atualização.");
+            throw new NotFoundException();
+        }
+        LOGGER.info("Atualizando evento encontrado");
+        var event = eventOptional.get();
+        event.updateAttributes(uObj);
 
-            var query = """
-                    UPDATE EVENTOS
-                    SET
-                    name = ?,
-                    deleted = ?,
-                    eventtype = ?,
-                    eventrisk = ?,
-                    place = ?,
-                    description = ?
-                    WHERE id = ?
-                    """;
+        var query = """
+                UPDATE EVENTOS
+                SET
+                name = ?,
+                deleted = ?,
+                eventtype = ?,
+                eventrisk = ?,
+                place = ?,
+                description = ?
+                WHERE id = ?
+                """;
 
-            try (var stmt = DataBaseConfig.getConnection().prepareStatement(query)) {
-                stmt.setInt(7, id);
+        try (var conn = DataBaseConfig.getConnection();
+             var stmt = conn.prepareStatement(query)) {
+            stmt.setInt(7, id);
 
-                stmt.setString(1, event.getName());
-                stmt.setBoolean(2, event.isDeleted());
-                stmt.setString(3, event.getEventType().toString());
-                stmt.setString(4, event.getEventRisk().toString());
-                stmt.setString(5, event.getPlace());
-                stmt.setString(6, event.getDescription());
-            } catch (SQLException e) {
-                LOGGER.error("Erro ao atualizar evento no sistema: {}", e);
-                throw new RuntimeException(e);
-            }
+            stmt.setString(1, event.getName());
+            stmt.setBoolean(2, event.isDeleted());
+            stmt.setString(3, event.getEventType().toString());
+            stmt.setString(4, event.getEventRisk().toString());
+            stmt.setString(5, event.getPlace());
+            stmt.setString(6, event.getDescription());
+        } catch (SQLException e) {
+            LOGGER.error("Erro ao atualizar evento no sistema: {}", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -144,7 +147,7 @@ public class EventRepo extends _BaseRepo implements _CrudRepo<Event> {
         }
         var event = eventOptional.get();
         event.setDeleted(true);
-        updateById(id,event);
+        updateById(id, event);
     }
 
     private static Event createEventFromResult(ResultSet rs) throws SQLException {
