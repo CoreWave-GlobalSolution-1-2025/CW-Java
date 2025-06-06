@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Configuration status="WARN">
     <Appenders>
-        <Console name="InfoLogger" append="true">
+        <Console name="InfoLogger">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
         </Console>
     </Appenders>
